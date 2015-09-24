@@ -1,0 +1,45 @@
+<link rel="import" href="mfo-arboleda.html">
+<link rel="import" href="mfo-grupofarolas.html">
+
+<!-- Defines element markup -->
+<dom-module id="mfo-elementos">
+    <template>
+        <mfo-grupofarolas numelems$="{{numelems}}" nivel="3" start="1" animation$="{{animation}}"></mfo-grupofarolas>
+        <mfo-arboleda numelems$="{{numelems}}" nivel="3" start="1" animation$="{{animation}}"></mfo-arboleda>
+    </template>
+</dom-module>
+
+<!-- Registers custom element -->
+<script>
+Polymer({
+    is: 'mfo-elementos',
+    showElements: function() {
+        var c = document.querySelector( 'mfo-cielo' ),
+            f = document.querySelector( 'mfo-grupofarolas' ),
+            a = document.querySelector( 'mfo-arboleda' );
+        if ( c.attributes["dianoche"].value === "dia" ) {
+            f.style.opacity = 0;
+            a.style.opacity = 1;
+        } else {
+            f.style.opacity = 1;
+            a.style.opacity = 0;
+        }
+    },
+
+    // Fires when an instance of the element is created
+    created: function() {},
+
+    // Fires when the local DOM has been fully prepared
+    ready: function() {
+    },
+
+    // Fires when the element was inserted into the document
+    attached: function() {},
+
+    // Fires when the element was removed from the document
+    detached: function() {},
+
+    // Fires when an attribute was added, removed, or updated
+    attributeChanged: function(attr, oldVal, newVal) {}
+});
+</script>

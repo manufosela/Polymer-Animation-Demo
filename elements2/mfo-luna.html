@@ -1,0 +1,57 @@
+<!-- Defines element markup -->
+<dom-module id="mfo-luna">
+    <style>
+        .luna { position: absolute; left: 50%; bottom: 300px; width: 70px; height: 70px; margin: 0 0 0 -175px; border-radius: 50%; background: #ccc; }
+        .luna:after { top: 20px; left: 20px; width: 10px; height: 10px; border-radius: 50%; background: rgba(0, 0, 0, 0.1); 
+                      box-shadow: 24px 16px 0 rgba(0, 0, 0, 0.1), 20px -12px 0 -4px rgba(0, 0, 0, 0.1), -14px 8px 0 -4px rgba(0, 0, 0, 0.1), -4px -10px 0 -3px rgba(0, 0, 0, 0.1), -4px 24px 0 -3px rgba(0, 0, 0, 0.1), 10px 10px 0 -3px rgba(0, 0, 0, 0.1); }
+        @keyframes moon-anim {
+          0% { transform: translateY(0px); }
+          40%{ transform: translateY(0px); }
+          100% { transform: translateY(400px); }
+        }
+        @-webkit-keyframes moon-anim {
+          0% { -webkit-transform: translateY(0px); }
+          40%{ -webkit-transform: translateY(0px); }
+          100% { -webkit-transform: translateY(400px); }
+        }
+    </style>
+    <template>
+        <div class='luna' style$="{{getStyle(dianoche)}}"></div>
+    </template>
+</dom-module>
+
+<!-- Registers custom element -->
+<script>
+Polymer({
+    is: 'mfo-luna',
+    getStyle: function( dianoche ) {
+        var style = "";
+        if ( dianoche == "noche" ) {
+          style += "opacity:1";
+        } else {
+          style += "opacity:0;";
+        }
+
+        return style;
+    },
+    // Fires when an instance of the element is created
+    created: function() {},
+
+    // Fires when the local DOM has been fully prepared
+    ready: function() {
+    },
+
+    // Fires when the element was inserted into the document
+    attached: function() {},
+
+    // Fires when the element was removed from the document
+    detached: function() {},
+
+    // Fires when an attribute was added, removed, or updated
+    attributeChanged: function(attr, oldVal, newVal) {
+      if ( attr === "dianoche" ) {
+        this.getStyle( newVal );
+      }
+    }
+});
+</script>

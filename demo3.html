@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>DEMO JUEGO</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="description" content="juego demo" />
+    <meta name="author" content="@manufosela" />
+    <link rel="stylesheet" type="text/css" href="css/styles2.css" />
+    <script src="bower_components/webcomponentsjs/webcomponents.min.js"></script>
+    <link rel="import" href="elements2/elements.html">
+  </head>
+
+  <body>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script>window.jQuery||document.write('<script src="js/libs/jquery-1.8.2.min.js"><\/script>')</script>
+    <script type="text/javascript">
+      var stateMov = "on",
+          dn = "noche";
+
+      $( document ).ready( function(){
+        $( "#dianoche_btn" ).on( "click", function(){
+          dn = ( dn == "noche" )?"dia":"noche";
+          $( "mfo-paisaje" ).attr( "dianoche", dn );
+        });
+        $( "#movimiento_btn" ).on( "click", function(){
+          stateMov = ( stateMov == "on" )?"off":"on";
+          $( "mfo-cordillera,mfo-arboleda,mfo-grupofarolas" ).attr( "animation", stateMov );
+        });
+      });
+    </script>
+    
+
+    <mfo-paisaje dianoche="noche" numcolinas="8" numelems="5" animation="on"></mfo-paisaje>
+
+    <button name="dianoche" id="dianoche_btn" >Dia/Noche</button>
+    <button name="movimiento" id="movimiento_btn" >Movimiento</button>
+  </body>
+</html>

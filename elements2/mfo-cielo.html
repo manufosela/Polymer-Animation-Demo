@@ -1,0 +1,213 @@
+<link rel="import" href="mfo-sol.html">
+<link rel="import" href="mfo-luna.html">
+
+<!-- Defines element markup -->
+<dom-module id="mfo-cielo">
+    <style>
+        .cielo { position: relative; height: 500px; overflow: hidden; background-color:#9DF; }
+        .noche { position:absolute; top:0; left:0; width:100%; height:100%; background-image: url( http://www.14denoviembre.es/img/hori.png ), url( http://www.14denoviembre.es/img/stars_5.png ); opacity:0; }
+        .dia { position:absolute; top:0; left:0; width:100%; height:100%; }
+        @keyframes off { 100% { opacity: 0; } }
+        @keyframes on { 100% { opacity: 1; } }
+        @-webkit-keyframes on { 100% { opacity: 1; }
+        @-webkit-keyframes off { 100% { opacity: 0;  }
+    </style>
+    <template>
+        <div class="cielo">
+            <div class="noche">        
+            <!--<mfo-luna animation="{{animation}}" dianoche="{{dianoche}}"></mfo-luna>-->
+            </div>
+            <!--<mfo-sol animation="{{animation}}" dianoche="{{dianoche}}"></mfo-sol>-->
+        </div>
+    </template>
+</dom-module>
+
+<!-- Registers custom element -->
+<script>
+Polymer({
+    is: 'mfo-cielo',
+    changeDiaNoche: function( dianoche ) {
+        var dianoche = dianoche || this.dianoche,  //this.attributes.getNamedItem("dianoche").value,
+            el= this.childNodes[1], // CIELO
+            elN= el.childNodes[1];  // NOCHE
+            //elD= el.childNodes[3];  // DIA
+        if ( dianoche === "dia" ) {
+            //elN.style.opacity = "0";
+            //elD.style.opacity = "1";
+            console.log( "noche off" );
+            if ( typeof elN.style.animation !== "undefined" ) {
+                elN.style["animation-name"] = "off";
+                elN.style["animation-duration"] = "3s";
+                elN.style["animation-fill-mode"] = "forwards";
+                elN.style["animation-iteration-count"] = "1";
+                //elN.style["animation-direction"] = "reverse";
+                
+                //elD.style["animation-name"] = "on";
+                //elD.style["animation-duration"] = "3s";
+                //elD.style["animation-fill-mode"] = "forwards";
+                //elD.style["animation-iteration-count"] = "1";
+                //elD.style["animation-delay"] = "3s";
+                //elD.style["animation-direction"] = "normal";
+            } else {
+                elN.style["-webkit-animation-name"] = "off";
+                elN.style["-webkit-animation-duration"] = "3s";
+                elN.style["-webkit-animation-fill-mode"] = "forwards";
+                elN.style["-webkit-animation-iteration-count"] = "1";
+                //elN.style["-webkit-animation-direction"] = "reverse";
+
+                //elD.style["-webkit-animation-name"] = "on";
+                //elD.style["-webkit-animation-duration"] = "3s";
+                //elD.style["-webkit-animation-fill-mode"] = "forwards";
+                //elD.style["-webkit-animation-iteration-count"] = "1";
+                //elD.style["-webkit-animation-delay"] = "3s";
+                //elD.style["-webkit-animation-direction"] = "normal";
+            }
+        } else {
+            console.log( "noche on" );
+            //elN.style.opacity = "1";
+            //elD.style.opacity = "0";
+            if ( typeof elN.style.animation !== "undefined" ) {
+                elN.style["animation-name"] = "on";
+                elN.style["animation-duration"] = "3s";
+                elN.style["animation-fill-mode"] = "forwards";
+                elN.style["animation-iteration-count"] = "1";
+                //elN.style["animation-delay"] = "3s";
+                //elN.style["animation-direction"] = "normal";
+
+                //elD.style["animation-name"] = "off";
+                //elD.style["animation-duration"] = "3s";
+                //elD.style["animation-fill-mode"] = "forwards";
+                //elD.style["animation-iteration-count"] = "1";
+                //elD.style["animation-direction"] = "reverse";
+            } else {
+                elN.style["-webkit-animation-name"] = "on";
+                elN.style["-webkit-animation-duration"] = "5s";
+                elN.style["-webkit-animation-fill-mode"] = "forwards";
+                elN.style["-webkit-animation-iteration-count"] = "1";
+                //elN.style["-webkit-animation-delay"] = "3s";
+                //elN.style["-webkit-animation-direction"] = "normal";
+
+                //elD.style["-webkit-animation-name"] = "off";
+                //elD.style["-webkit-animation-duration"] = "5s";
+                //elD.style["-webkit-animation-fill-mode"] = "forwards";
+                //elD.style["-webkit-animation-iteration-count"] = "1";
+                //elD.style["-webkit-animation-direction"] = "reverse";
+            }
+        }
+    },
+
+    // Fires when an instance of the element is created
+    created: function() {},
+
+    // Fires when the local DOM has been fully prepared
+    ready: function() {
+        this.changeDiaNoche();
+    },
+
+    // Fires when the element was inserted into the document
+    attached: function() {},
+
+    // Fires when the element was removed from the document
+    detached: function() {},
+
+    // Fires when an attribute was added, removed, or updated
+    attributeChanged: function(attr, oldVal, newVal) {
+
+/*        var el= this.childNodes[1], // CIELO
+            el1= el.childNodes[1],  // NOCHE
+            elL= el1.childNodes[1], // LUNA
+            el2= el.childNodes[3],  // DIA
+            elS= el2.childNodes[1]; // SOL
+        if ( attr == "animation" ) {
+            var s = "";
+            if ( newVal == "on" ) {
+                s += "running";
+            } else {
+                s += "paused";
+            }
+            if ( typeof el1.style['animation-play-state'] !== "undefined" ) {
+                el1.style['animation-play-state'] = s;
+                el2.style['animation-play-state'] = s;
+                el3.style['animation-play-state'] = s;
+            } else {
+                el1.style['-webkit-animation-play-state'] = s;
+                el2.style['-webkit-animation-play-state'] = s;
+                el3.style['-webkit-animation-play-state'] = s;
+            }
+        }
+        if ( attr == "dianoche" ) {
+            if ( newVal == "dia" ) {
+                if ( typeof el1.style["animation-name"] !== "undefined" ) {
+                    el1.style["animation-name"] = "daynight";
+                    el1.style["animation-duration"] = "5s";
+                    el1.style["animation-iteration-count"] = 1;
+                    el1.style["animation-fill-mode"] = "both";
+                    el1.style["animation-direction"] = "normal";
+                    el2.style["animation-name"] = "night2day";
+                    el2.style["animation-duration"] = "5s";
+                    el2.style["animation-iteration-count"] = 1;
+                    el2.style["animation-fill-mode"] = "forwards";
+                    el2.style["animation-direction"] = "normal";
+                    el3.style["animation-name"] = "night2day";
+                    el3.style["animation-duration"] = "5s";
+                    el3.style["animation-iteration-count"] = 1;
+                    el3.style["animation-fill-mode"] = "forwards";
+                    el3.style["animation-direction"] = "normal";
+                } else {
+                    el1.style["-webkit-animation-name"] = "daynight";
+                    el1.style["-webkit-animation-duration"] = "5s";
+                    el1.style["-webkit-animation-iteration-count"] = 1;
+                    el1.style["-webkit-animation-fill-mode"] = "both";
+                    el1.style["-webkit-animation-direction"] = "normal";
+                    el2.style["-webkit-animation-name"] = "night2day";
+                    el2.style["-webkit-animation-duration"] = "5s";
+                    el2.style["-webkit-animation-iteration-count"] = 1;
+                    el2.style["-webkit-animation-fill-mode"] = "forwards";
+                    el2.style["-webkit-animation-direction"] = "normal";
+                    el3.style["-webkit-animation-name"] = "night2day";
+                    el3.style["-webkit-animation-duration"] = "5s";
+                    el3.style["-webkit-animation-iteration-count"] = 1;
+                    el3.style["-webkit-animation-fill-mode"] = "forwards";
+                    el3.style["-webkit-animation-direction"] = "normal";
+                }
+            } else {
+                if ( typeof el1.style["animation-name"] !== "undefined" ) {
+                    el1.style["animation-name"] = "daynight";
+                    el1.style["animation-duration"] = "5s";
+                    el1.style["animation-iteration-count"] = 1;
+                    el1.style["animation-fill-mode"] = "both";
+                    el1.style["animation-direction"] = "reverse";
+                    el2.style["animation-name"] = "night2day";
+                    el2.style["animation-duration"] = "5s";
+                    el2.style["animation-iteration-count"] = 1;
+                    el2.style["animation-fill-mode"] = "forwards";
+                    el2.style["animation-direction"] = "reverse";
+                    el3.style["animation-name"] = "night2day";
+                    el3.style["animation-duration"] = "5s";
+                    el3.style["animation-iteration-count"] = 1;
+                    el3.style["animation-fill-mode"] = "forwards";
+                    el3.style["animation-direction"] = "reverse";
+                } else {
+                    el1.style["-webkit-animation-name"] = "daynight";
+                    el1.style["-webkit-animation-duration"] = "5s";
+                    el1.style["-webkit-animation-iteration-count"] = 1;
+                    el1.style["-webkit-animation-fill-mode"] = "both";
+                    el1.style["-webkit-animation-direction"] = "reverse";
+                    el2.style["-webkit-animation-name"] = "night2day";
+                    el2.style["-webkit-animation-duration"] = "5s";
+                    el2.style["-webkit-animation-iteration-count"] = 1;
+                    el2.style["-webkit-animation-fill-mode"] = "forwards";
+                    el2.style["-webkit-animation-direction"] = "reverse";
+                    el3.style["-webkit-animation-name"] = "night2day";
+                    el3.style["-webkit-animation-duration"] = "5s";
+                    el3.style["-webkit-animation-iteration-count"] = 1;
+                    el3.style["-webkit-animation-fill-mode"] = "forwards";
+                    el3.style["-webkit-animation-direction"] = "reverse";
+                }
+            }
+            console.log( newVal );
+        }*/
+    }
+    
+});
+</script>

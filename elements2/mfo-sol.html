@@ -1,0 +1,58 @@
+<!-- Defines element markup -->
+<dom-module id="mfo-sol">
+    <style>
+      .sol { position: absolute; left: 80%; bottom: 300px; width: 100px; height: 100px; margin: 0 0 0 -175px; border-radius: 50%; background: #DD0; }
+      .sol .ojo { width:20px; height:20px; position:absolute; top:30px; border-radius:50%; background:rgba(255,255,0,0.5); z-index:2; }
+      .sol .ojo div { position:absolute; background:rgba(0,0,0,0.5); width:5px; height:5px; border-radius:60%; top:10px; left:5px; }
+      .sol .ojo.izq { left:20px; }
+      .sol .ojo.der { right:20px; }
+      .sol .boca { position: absolute; top: 41px; left: 21px; width: 60px; height: 50px; border-radius: 50%; background: rgba(255,255,0,0.5); }
+      .sol .boca div { z-index: 1; position: absolute; top: -10px; left: 0; width: 55px; height: 55px; border-radius: 50%; background: #DD0; }
+        
+      @-webkit-keyframes sun-anim {
+        0% { -webkit-transform: translateY(0px); }
+        40%{ -webkit-transform: translateY(0px); }
+        100% { -webkit-transform: translateY(-400px); }
+      }
+      @keyframes sun-anim {
+        0% { transform: translateY(0px); }
+        40%{ transform: translateY(0px); }
+        100% { transform: translateY(-400px); }
+      }
+    </style>
+    <template>
+        <div class="sol" style$="{{getStyle(animation)}}">
+          <div class="ojo izq"><div></div></div>
+          <div class="ojo der"><div></div></div>
+          <div class="boca"><div></div></div>
+        </div>
+    </template>
+</dom-module>
+
+<!-- Registers custom element -->
+<script>
+Polymer({
+    is: 'mfo-sol',
+    getStyle: function( anim ) {
+        var style = "";
+        if ( anim == "on" ) {
+            style += "animation:sun-anim 5s; -webkit-animation:sun-anim 5s; animation-iteration-count:1; -webkit-animation-iteration-count:1; animation-fill-mode: forwards; -webkit-animation-fill-mode:forwards; ";
+        } 
+        return style;
+    },
+    // Fires when an instance of the element is created
+    created: function() {},
+
+    // Fires when the local DOM has been fully prepared
+    ready: function() {},
+
+    // Fires when the element was inserted into the document
+    attached: function() {},
+
+    // Fires when the element was removed from the document
+    detached: function() {},
+
+    // Fires when an attribute was added, removed, or updated
+    attributeChanged: function(attr, oldVal, newVal) {}
+});
+</script>

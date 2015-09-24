@@ -1,0 +1,24 @@
+{
+  "name": "demo_juego",
+  "version": "0.0.1",
+  "authors": [
+    "manufosela <manufosela@gmail.com>"
+  ],
+  "description": "evolution demo juego with polymer",
+  "main": "index.html",
+  "moduleType": [
+    "node"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.0.0",
+    "webcomponentsjs": "~0.7.9"
+  }
+}

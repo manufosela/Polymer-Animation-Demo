@@ -1,0 +1,85 @@
+<link rel="import" href="mfo-arbol.html">
+
+<!-- Defines element markup -->
+<dom-module id="mfo-arboleda">
+    <style>
+        .arboleda { position: absolute; bottom: 0; left:100%; width: 1000%; background: #182a3d; }
+        @-webkit-keyframes animArboles { 100% { -webkit-transform: translateX(-2400px); } }
+        @keyframes animArboles { 100% { transform: translateX(-2400px); } }
+    </style>
+    <template>
+        <div class='arboleda'>
+            <template is="dom-repeat" items="{{aNumElems}}">
+                <mfo-arbol n="{{ posicion( index ) }}"></mfo-arbol>
+            </template>
+        </div>
+    </template>
+</dom-module>
+
+<!-- Registers custom element -->
+<script>
+Polymer({
+    is: 'mfo-arboleda',
+    posicion: function( i ) {
+        var s = this.attributes.getNamedItem("start").value,
+            p = 1 + i + parseInt( s );
+        return p;
+    },
+    getStyle: function( l ) {
+        var style = "",
+            anim = this.animation,
+            el = this.childNodes[1];
+        if ( anim == "on" ) {
+            if ( typeof el.style.animation !== "undefined" ) {
+                el.style["animation-name"] = "animArboles";
+                el.style["animation-duration"] ="30s"
+                el.style["animation-timing-function"] = "linear"
+                el.style["animation-iteration-count"] = "infinite";
+            } else {
+                el.style["-webkit-animation-name"] = "animArboles";
+                el.style["-webkit-animation-duration"] ="30s"
+                el.style["-webkit-animation-timing-function"] = "linear"
+                el.style["-webkit-animation-iteration-count"] = "infinite";
+            }
+        } 
+        el.style["z-index"] = l; 
+    },
+    // Fires when an instance of the element is created
+    created: function() {},
+
+    // Fires when the local DOM has been fully prepared
+    ready: function() {
+        var n = this.numelems; // this.attributes.getNamedItem("numelems").value;
+        this.aNumElems = new Array( n );
+        for(var i=0; i<n; i++ ) {
+            this.aNumElems[i] = i;
+        }
+        this.getStyle( this.attributes.getNamedItem("nivel").value );
+    },
+
+    // Fires when the element was inserted into the document
+    attached: function() {},
+
+    // Fires when the element was removed from the document
+    detached: function() {},
+
+    // Fires when an attribute was added, removed, or updated
+    attributeChanged: function(attr, oldVal, newVal) {
+        if ( attr == "animation" ) {
+            var s = "";
+            if ( newVal == "on" ) {
+                s += "running";
+            } else {
+                s += "paused";
+            }
+            var el1= this.childNodes[1];
+
+            if ( typeof el1.style['animation-play-state'] !== "undefined" ) {
+                el1.style['animation-play-state'] = s;
+            } else {
+                el1.style['-webkit-animation-play-state'] = s;
+            }
+        }
+    }
+});
+</script>

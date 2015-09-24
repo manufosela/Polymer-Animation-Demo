@@ -1,0 +1,52 @@
+<link rel="import" href="mfo-cordillera.html">
+<link rel="import" href="mfo-cielo.html">
+<link rel="import" href="mfo-elementos.html">
+
+<!-- Defines element markup -->
+<dom-module id="mfo-paisaje">
+    <template>
+        <div class='paisaje'>
+            <mfo-cielo dianoche$="{{dianoche}}" animation="off"></mfo-cielo>
+
+            <mfo-cordillera numcolinas$="{{numcolinas}}" nivel="1" animation$="{{animation}}"></mfo-cordillera>
+            <mfo-cordillera numcolinas$="{{numcolinas}}" nivel="2" animation$="{{animation}}"></mfo-cordillera>
+
+            <mfo-elementos numelems="{{numelems}}" nivel="3" start="1" animation$="{{animation}}"></mfo-elementos>
+
+            <!-- TODO
+              NUM DE ARBOLES Y FAROLAS ALEATORIO EN CADA PASO
+              POSICION DE CORDILLERA VARIABLE EN UN MARGEN AL INICIO
+            -->
+        </div>
+    </template>
+</dom-module>
+
+<!-- Registers custom element -->
+<script>
+Polymer({
+    is: 'mfo-paisaje',
+
+    // Fires when an instance of the element is created
+    created: function() {},
+
+    // Fires when the local DOM has been fully prepared
+    ready: function() {
+        var els = document.querySelector( "mfo-elementos" );
+        els.showElements();
+    },
+
+    // Fires when the element was inserted into the document
+    attached: function() {},
+
+    // Fires when the element was removed from the document
+    detached: function() {},
+
+    // Fires when an attribute was added, removed, or updated
+    attributeChanged: function(attr, oldVal, newVal) {
+        if ( attr == "dianoche" ) {
+            document.querySelector( "mfo-cielo" ).changeDiaNoche( newVal );
+            document.querySelector( "mfo-elementos" ).showElements();
+        }
+    }
+});
+</script>

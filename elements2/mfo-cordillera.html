@@ -1,0 +1,103 @@
+<link rel="import" href="mfo-colina.html">
+
+<!-- Defines element markup -->
+<dom-module id="mfo-cordillera">
+    <style>
+        .capa { position: absolute; bottom: 0; }
+        .nivel1 { z-index: 1; }
+        .nivel2 { z-index: 2; }
+        @keyframes nivel1 { 100% { transform: translateX(-400px); } }
+        @keyframes nivel2 { 100% { transform: translateX(-800px); } }
+        @-webkit-keyframes nivel1 { 100% { -webkit-transform: translateX(-400px); } }
+        @-webkit-keyframes nivel2 { 100% { -webkit-transform: translateX(-800px); } }
+        @keyframes daynight-cordillera1 { 0% { background: #20374f; } 100% { background:#558811; } }
+        @keyframes daynight-cordillera2 { 0% { background: #274461; } 100% { background:#22AA33; } }
+        @-webkit-keyframes daynight-cordillera1 { 0% { background: #20374f; } 100% { background:#558811; } }
+        @-webkit-keyframes daynight-cordillera2 { 0% { background: #274461; } 100% { background:#22AA33; } }
+    </style>
+    <template>
+        <div class="capa">
+            <div class="cordillera" style$="{{nivelcordillera}}">
+                <template is="dom-repeat" items="{{aNumColinas}}">
+                    <mfo-colina n$="{{ posicion( index ) }}" l$="{{nivel}}" animation$="{{animation}}"></mfo-colina>
+                </template>
+            </div>
+        </div>
+    </template>
+</dom-module>
+
+<!-- Registers custom element -->
+<script>
+Polymer({
+    is: 'mfo-cordillera',
+
+    // Fires when an instance of the element is created
+    created: function() {},
+    posicion: function( i ) {
+        return i+1;
+    },
+    getStyle: function( l ) {
+        var style = "",
+            anim = this.animation,  //this.attributes.getNamedItem("animation").value;
+            el = this.childNodes[1];
+
+        if ( anim == "on" ) {
+            if ( typeof el.style.animation !== "undefined" ) {
+                el.style["animation-name"] = "nivel"+l;
+                el.style["animation-duration"] ="30s"
+                el.style["animation-timing-function"] = "linear"
+                el.style["animation-iteration-count"] = "infinite";
+            } else {
+                el.style["-webkit-animation-name"] = "nivel"+l;
+                el.style["-webkit-animation-duration"] ="30s"
+                el.style["-webkit-animation-timing-function"] = "linear"
+                el.style["-webkit-animation-iteration-count"] = "infinite";
+            }
+        } 
+        el.style["z-index"] = l; 
+    },
+    // Fires when the local DOM has been fully prepared
+    ready: function() {
+        var n = this.numcolinas; //this.attributes.getNamedItem("numcolinas").value;
+        this.aNumColinas = new Array( n );
+        for(var i=0; i<n; i++ ) {
+            this.aNumColinas[i] = i;
+        }
+        var l = this.attributes.getNamedItem("nivel").value;
+        this.nivelcordillera = "bottom:" + (-300 - l*50) + "px;";
+        var anim = this.animation; //this.attributes.getNamedItem("animation").value;
+        if ( anim == "on" ) {
+            this.nivelcordillera += " animation: daynight-cordillera"+l+" 30s linear infinite; -webkit-animation: daynight-cordillera"+l+" 30s linear infinite; ";
+        }
+        this.getStyle( l );
+    },
+
+    // Fires when the element was inserted into the document
+    attached: function() {},
+
+    // Fires when the element was removed from the document
+    detached: function() {},
+
+    // Fires when an attribute was added, removed, or updated
+    attributeChanged: function(attr, oldVal, newVal) {
+        if ( attr == "animation" ) {
+            var s = "";
+            if ( newVal == "on" ) {
+                s += "running";
+            } else {
+                s += "paused";
+            }
+            var el1= this.childNodes[1], //capa
+                el2= el1.childNodes[1]; //cordillera
+
+            if ( typeof el1.style['animation-play-state'] !== "undefined" ) {
+                el1.style['animation-play-state'] = s;
+                el2.style['animation-play-state'] = s;
+            } else {
+                el1.style['-webkit-animation-play-state'] = s;
+                el2.style['-webkit-animation-play-state'] = s;
+            }
+        }
+    }
+});
+</script>

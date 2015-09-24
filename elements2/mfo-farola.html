@@ -1,0 +1,40 @@
+<!-- Defines element markup -->
+<dom-module id="mfo-farola">
+    <style>
+        .la { position: absolute; bottom: 0; width: 2px; height: 50px; background: #182a3d; margin-right: 20px; }
+        .la:before { top: 5px; left: -10px; width: 22px; height: 2px; background: #182a3d; }
+        .la:after { bottom: 0; left: -2px; width: 6px; height: 12px; background: #182a3d; }
+        .l { position: absolute; width: 5px; height: 5px; border-radius: 50%; background: #fff; box-shadow: 0 0 10px #fff, 0 0 25px #fff, 0 0 50px #fff; }
+        .l:nth-child(1) {left: -10px;}
+        .l:nth-child(2) {right: -10px;}
+    </style>
+    <template>
+        <div class='la' style$="{{ posicion(n) }}">
+          <div class='l'></div>
+          <div class='l'></div>
+    </template>
+</dom-module>
+
+<!-- Registers custom element -->
+<script>
+Polymer({
+    is: 'mfo-farola',
+    posicion:function( n ){
+        return ( "left:" + ( ( n * 100 ) ) + "px" );
+    },
+    // Fires when an instance of the element is created
+    created: function() {},
+
+    // Fires when the local DOM has been fully prepared
+    ready: function() {},
+
+    // Fires when the element was inserted into the document
+    attached: function() {},
+
+    // Fires when the element was removed from the document
+    detached: function() {},
+
+    // Fires when an attribute was added, removed, or updated
+    attributeChanged: function(attr, oldVal, newVal) {}
+});
+</script>

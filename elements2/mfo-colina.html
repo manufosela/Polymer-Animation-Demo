@@ -1,0 +1,50 @@
+<!-- Defines element markup -->
+<dom-module id="mfo-colina">
+    <style>
+        div.hill { position: absolute; border-radius: 8%; bottom: -350px; width: 500px; height: 500px;
+                   transform: rotate(45deg); -webkit-transform: rotate(45deg); }
+        :host ::content div { background: #EEE; position: absolute; }
+        .hill .nieve1 { top: 0; width: 50px; height: 50px; border-radius: 10px 0 10px 0; }
+        .hill .nieve2{ top: 49px; width: 25px; height: 25px; border-radius: 0 0 10px 0; }
+        .hill .nieve3{ top: 0px; width: 25px; height: 25px; border-radius: 0 0 10px 0; left: 49px; }        
+    </style>
+    <template>
+        <div class='hill' style$="{{ getStyle( n, l ) }}">
+          <div class="nieve1"></div>
+          <div class="nieve2"></div>
+          <div class="nieve3"></div>
+        </div>
+    </template>
+</dom-module>
+
+<!-- Registers custom element -->
+<script>
+Polymer({
+    is: 'mfo-colina',
+    getStyle: function( n, l ) {
+        var style = "",
+            anim = this.animation;
+        style += "left:" + ( ( n * 400 ) - 600 ) + "px; bottom: " + ( -300 - ( 50 * l ) ) + "px; ";
+        if ( anim == "on" ) {
+            style += "animation:daynight-cordillera"+l+" 60s infinite alternate; -webkit-animation:daynight-cordillera"+l+" 60s infinite alternate; "
+        } else {
+            style += "background:#091";
+        }
+        return style;
+    },
+    // Fires when an instance of the element is created
+    created: function() {},
+
+    // Fires when the local DOM has been fully prepared
+    ready: function() {},
+
+    // Fires when the element was inserted into the document
+    attached: function() {},
+
+    // Fires when the element was removed from the document
+    detached: function() {},
+
+    // Fires when an attribute was added, removed, or updated
+    attributeChanged: function(attr, oldVal, newVal) {}
+});
+</script>

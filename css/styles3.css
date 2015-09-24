@@ -1,0 +1,30 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:before, :after {
+  content: '';
+  display: block;
+  position: absolute;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+  background:#000;
+}
+
+.paisaje {
+  position: relative;
+  height: 500px;
+  overflow: hidden;
+}
+
+@media only screen and (height: 300px) {
+  .landscape {
+    margin-top: -250px;
+  }
+}

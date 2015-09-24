@@ -1,0 +1,74 @@
+<link rel="import" href="mfo-farola.html">
+
+<!-- Defines element markup -->
+<dom-module id="mfo-grupofarolas">
+    <style>
+        .grupofarolas { position: absolute; bottom: 0; animation: grupofarolas 30s linear infinite; -webkit-animation: grupofarolas 30s linear infinite; left:100%; width: 1000%; background: #182a3d; }
+        @-webkit-keyframes grupofarolas { 100% { -webkit-transform: translateX(-2400px); } }
+        @keyframes grupofarolas { 100% { transform: translateX(-2400px); } }
+    </style>
+    <template>
+        <div class='grupofarolas' style$="{{ getStyle( nivel ) }}">
+            <template is="dom-repeat" items="{{aNumElems}}">
+                <mfo-farola n="{{ posicion( index ) }}"></mfo-farola>
+            </template>
+        </div>
+    </template>
+</dom-module>
+
+<!-- Registers custom element -->
+<script>
+Polymer({
+    is: 'mfo-grupofarolas',
+    posicion: function( i ) {
+        var s = this.attributes.getNamedItem("start").value,
+            p = 1 + i + parseInt( s );
+        return p;
+    },
+    getStyle: function( l ) {
+        var style = "",
+            anim = this.animation;
+        if ( anim == "on" ) {
+            style += "animation: animArboles 30s linear infinite; -webkit-animation: animArboles 30s linear infinite; ";
+        } 
+        style += "z-index:"+l+"; "; 
+        return style;
+    },
+    // Fires when an instance of the element is created
+    created: function() {},
+
+    // Fires when the local DOM has been fully prepared
+    ready: function() {
+        var n = this.numelems; //this.attributes.getNamedItem("numelems").value;
+        this.aNumElems = new Array( n );
+        for(var i=0; i<n; i++ ) {
+            this.aNumElems[i] = i;
+        }
+    },
+
+    // Fires when the element was inserted into the document
+    attached: function() {},
+
+    // Fires when the element was removed from the document
+    detached: function() {},
+
+    // Fires when an attribute was added, removed, or updated
+    attributeChanged: function(attr, oldVal, newVal) {
+        if ( attr == "animation" ) {
+            var s = "";
+            if ( newVal == "on" ) {
+                s += "running";
+            } else {
+                s += "paused";
+            }
+            var el1= this.childNodes[1];
+
+            if ( typeof el1.style['animation-play-state'] !== "undefined" ) {
+                el1.style['animation-play-state'] = s;
+            } else {
+                el1.style['-webkit-animation-play-state'] = s;
+            }
+        }
+    }
+});
+</script>
