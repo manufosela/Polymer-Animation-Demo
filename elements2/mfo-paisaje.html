@@ -31,7 +31,7 @@ Polymer({
 
     // Fires when the local DOM has been fully prepared
     ready: function() {
-        var els = document.querySelector( "mfo-elementos" );
+        var els = this.children[0].querySelector( "mfo-elementos" );
         els.showElements();
     },
 
@@ -44,8 +44,8 @@ Polymer({
     // Fires when an attribute was added, removed, or updated
     attributeChanged: function(attr, oldVal, newVal) {
         if ( attr == "dianoche" ) {
-            document.querySelector( "mfo-cielo" ).changeDiaNoche( newVal );
-            document.querySelector( "mfo-elementos" ).showElements();
+            this.children[0].querySelector( "mfo-cielo" ).changeDiaNoche( newVal );
+            this.children[0].querySelector( "mfo-elementos" ).showElements();
         }
     }
 });
